@@ -1,0 +1,13 @@
+#!name=QQ音乐自动签到
+#!desc=v3.2｜抓取 QQ音乐 App 的登录cookie，每天 10:02（北京时间）自动签到领金币：金币签到、连续奖励、抽奖签到与抽奖、每日任务（含浏览/查看类）领奖、定时金币、红包雨一并完成（顺带绿钻成长值签到），通知报成功/失败项数与金币到账；cookie失效会单独发提醒。脚本托管在 GitHub（Zeu1s/tools），Surge 直接拉取。开关说明：停用本模块=全部停止；「抓取cookie」在下方设置里填数字——1 为开、2 为关，平时填 2 即可（首次使用或cookie失效时改成 1，开一次 App 抓到后改回 2）；手动补签用 Safari 打开 https://qqmusic.201922.xyz/run 。
+#!system=ios
+#!arguments=抓取cookie:1
+#!arguments-desc=抓取cookie开关（填数字）：1 为开——打开 QQ 音乐时抓取/刷新cookie；2 为关——只用已存cookie签到。首次使用或收到「cookie已失效」提醒时填 1，抓到后改回 2。
+
+[Script]
+QQ音乐抓cookie = type=http-request,pattern=^https:\/\/([a-z0-9]+\.)?y\.qq\.com\/,script-path=https://raw.githubusercontent.com/Zeu1s/tools/main/qqmusic-checkin.v32.js,requires-body=true,argument={{{抓取cookie}}}
+QQ音乐手动签到 = type=http-request,pattern=^https:\/\/qqmusic\.201922\.xyz\/run,script-path=https://raw.githubusercontent.com/Zeu1s/tools/main/qqmusic-checkin.v32.js,timeout=120
+QQ音乐签到 = type=cron,cronexp="2 10 * * *",script-path=https://raw.githubusercontent.com/Zeu1s/tools/main/qqmusic-checkin.v32.js,wake-system=1,timeout=180
+
+[MITM]
+hostname = %APPEND% u.y.qq.com, u6.y.qq.com, y.qq.com, qqmusic.201922.xyz
