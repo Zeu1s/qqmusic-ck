@@ -1,5 +1,5 @@
 #!name=QQ音乐自动签到
-#!desc=抓取 QQ音乐 App 的登录凭证，每天 10:02（北京时间）自动完成金币中心签到（顺带绿钻成长值签到）。脚本托管在 GitHub（Zeu1s/tools），Surge 直接拉取。模块设置里可关「抓取凭证」；手动补签用 Safari 打开 https://qqmusic.201922.xyz/run ；凭证失效时打开抓取开关、开一次 App 刷新即可。
+#!desc=抓取 QQ音乐 App 的登录凭证，每天 10:02（北京时间）自动完成金币中心签到（顺带绿钻成长值签到）。脚本托管在 GitHub（Zeu1s/tools），Surge 直接拉取。开关说明：停用本模块=全部停止；模块设置里的「抓取凭证」关掉后不再抓取、只用已存凭证签到（首次使用或凭证失效时才需要打开，开一次 App 抓到后即可关掉）；手动补签用 Safari 打开 https://qqmusic.201922.xyz/run 。
 #!system=ios
 #!arguments=抓取凭证:true
 
