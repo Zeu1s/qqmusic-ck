@@ -1,0 +1,16 @@
+#!name=QQ音乐自动签到
+#!desc=抓取 QQ音乐 App 的登录cookie，每天 10:02（北京时间）自动签到领金币：金币签到、连续奖励、抽奖签到与抽奖、每日任务（含浏览/查看类）领奖、定时金币、红包雨一并完成（顺带绿钻成长值签到），通知报成功/失败项数与金币到账；cookie失效会单独发提醒。需开启 Loon 的 MITM 并信任证书后才能抓取cookie。
+#!author=Zeu1s
+#!homepage=https://github.com/Zeu1s/qqmusic-ck
+#!date=2026-10-23
+
+[Argument]
+抓取cookie = switch, true, tag=抓取cookie, desc=开=打开QQ音乐App时抓取/刷新登录cookie（抓到必发「cookie获取成功」通知；首次使用或cookie失效时开，抓到后关掉）；关=只用已存cookie签到
+
+[Script]
+http-request ^https:\/\/([a-z0-9]+\.)?y\.qq\.com\/ script-path=https://raw.githubusercontent.com/Zeu1s/qqmusic-ck/main/qqmusic-checkin.v33.js, requires-body=true, tag=QQ音乐抓cookie, argument={{{抓取cookie}}}
+http-request ^https:\/\/raw\.githubusercontent\.com\/Zeu1s\/qqmusic-ck\/main\/run\.txt script-path=https://raw.githubusercontent.com/Zeu1s/qqmusic-ck/main/qqmusic-checkin.v33.js, tag=QQ音乐手动签到, timeout=120
+cron "2 10 * * *" script-path=https://raw.githubusercontent.com/Zeu1s/qqmusic-ck/main/qqmusic-checkin.v33.js, tag=QQ音乐签到, timeout=180
+
+[MITM]
+hostname = u.y.qq.com, u6.y.qq.com, y.qq.com, raw.githubusercontent.com

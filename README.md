@@ -2,7 +2,7 @@
 
 抓取 QQ 音乐 App 的登录 cookie，每天定时自动完成金币中心签到及一系列领金币动作，结果用一条通知报账：每项做了什么、成功几项、失败几项、金币余额和本次到账。攒下的金币可在 App 的金币商城兑换绿钻会员天数。
 
-当前版本：**v3.2**（脚本本体 Surge / Loon 共用一份代码，各配一个配置文件）
+当前版本：**v3.3**（脚本本体 Surge / Loon 共用一份代码，各配一个配置文件）
 
 ## 每天自动做的事
 
@@ -24,14 +24,14 @@
 ### Surge
 
 1. 在 Surge 里从 URL 安装模块：
-   `https://raw.githubusercontent.com/Zeu1s/tools/main/qqmusic-checkin.v32.sgmodule`
-2. 确认模块说明开头是「v3.2｜」，且模块处于启用状态。
+   `https://raw.githubusercontent.com/Zeu1s/qqmusic-ck/main/qqmusic-checkin.v33.sgmodule`
+2. 确认模块说明开头是「v3.3｜」，且模块处于启用状态。
 3. 按下面「抓 cookie」做一次。
 
 ### Loon
 
 1. 在 Loon 里从 URL 安装插件：
-   `https://raw.githubusercontent.com/Zeu1s/tools/main/qqmusic-checkin.v32.plugin`
+   `https://raw.githubusercontent.com/Zeu1s/qqmusic-ck/main/qqmusic-checkin.v33.plugin`
 2. 确认插件已启用；Loon 需开启 MITM 并信任证书，抓 cookie 才能工作。
 3. 按下面「抓 cookie」做一次。
 
@@ -41,7 +41,7 @@
 
 1. 打开模块/插件设置里的「抓取cookie」开关（Surge 里填数字 `1`；Loon 里打开开关）。
 2. 保持代理（Surge / Loon）开启，打开一次 QQ 音乐 App，随便点开一个页面。
-3. 收到「cookie已保存」通知即成功。
+3. 收到「cookie获取成功」通知即成功——**每次抓到都会通知，哪怕 cookie 和已存的一致**（同一段时间内的重复请求不会重复弹，防刷屏）。
 4. 把开关关回去（Surge 改回 `2`；Loon 关掉开关）。平时关着即可，只用已存的 cookie 签到。
 
 cookie 只保存在手机本地，不经过任何服务器。删掉模块/插件再重装，cookie 一般不会丢；丢了按上面步骤重新抓一次即可。
@@ -53,7 +53,7 @@ cookie 只保存在手机本地，不经过任何服务器。删掉模块/插件
 | 全部停止 | 停用模块（Surge）/ 关闭插件（Loon） |
 | 只停自动签到 | 删掉配置文件里的 cron 那一行后重装 |
 | 改签到时间 | 改 cron 表达式（默认 `2 10 * * *` = 每天 10:02，北京时间），重装后生效 |
-| 手动补签一次 | 保持代理开启，用 Safari 打开 `https://qqmusic.201922.xyz/run`，结果看通知 |
+| 手动补签一次 | 保持代理开启，用 Safari 打开 `https://raw.githubusercontent.com/Zeu1s/qqmusic-ck/main/run.txt`，结果看通知 |
 | 重新抓 cookie | 打开「抓取cookie」开关 → 开一次 App → 收到通知后关掉开关 |
 
 ## 通知长什么样
@@ -76,23 +76,24 @@ QQ音乐签到 · 完成
 ```
 QQ音乐签到 · ⚠️ cookie已失效
 登录cookie已过期，本次签到跳过。重新抓取：①在模块/插件设置里打开『抓取cookie』
-②打开一次 QQ音乐 App，收到『cookie已保存』后把开关关掉。完成后下一次签到自动恢复。
+②打开一次 QQ音乐 App，收到『cookie获取成功』后把开关关掉。完成后下一次签到自动恢复。
 ```
 
 按通知做一次即可，一般能管几周到几个月。
 
 ## 更新与版本命名
 
-Surge 对远程文件有缓存：同一个地址更新内容，删掉模块重装也可能仍跑旧脚本。所以本仓库每个版本都用**带版本号的新文件名**发布（如 `qqmusic-checkin.v32.js`、`qqmusic-checkin.v32.sgmodule`），升级 = 删掉旧模块/插件、用新链接装一次，不存在「更新不到」的问题。
+Surge 对远程文件有缓存：同一个地址更新内容，删掉模块重装也可能仍跑旧脚本。所以本仓库每个版本都用**带版本号的新文件名**发布（如 `qqmusic-checkin.v33.js`、`qqmusic-checkin.v33.sgmodule`），升级 = 删掉旧模块/插件、用新链接装一次，不存在「更新不到」的问题。
 
 ## 文件清单
 
 | 文件 | 说明 |
 | --- | --- |
-| `qqmusic-checkin.v32.js` | 脚本本体（v3.2，Surge / Loon 共用） |
-| `qqmusic-checkin.v32.sgmodule` | Surge 模块（v3.2） |
-| `qqmusic-checkin.v32.plugin` | Loon 插件（v3.2） |
-| `qqmusic-checkin.js` / `.sgmodule` / `.v3.js` / `.v31.sgmodule` | 历史版本，保留备查 |
+| `qqmusic-checkin.v33.js` | 脚本本体（v3.3，Surge / Loon 共用） |
+| `qqmusic-checkin.v33.sgmodule` | Surge 模块（v3.3） |
+| `qqmusic-checkin.v33.plugin` | Loon 插件（v3.3） |
+| `run.txt` | 手动触发页（在 Safari 打开即触发一次签到） |
+| `qqmusic-checkin.js` / `.sgmodule`、`.v3.js`、`.v31.sgmodule`、`.v32.*` | 历史版本，保留备查 |
 
 脚本文件末尾附有同一份使用说明（注释形式），离线也能查。
 
